@@ -1,7 +1,10 @@
 #ifndef FOOTBALL_H
 #define FOOTBALL_H
 
-#define _CRT_SECURE_NO_WARNINGS
+#define reddy_made
+
+void removeNewline(char* str);
+int isFileEmpty();
 
 typedef struct {
     char fullName[33];     // ФИО футболиста
