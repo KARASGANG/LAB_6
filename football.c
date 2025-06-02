@@ -25,7 +25,7 @@ int isFileEmpty() {
         return 1;  // Считаем файл "пустым" при ошибке открытия
     }
 
-    fseek(f, 0, SEEK_END);
+    fseek(f, 0, SEEK_END); // Перейти на конец файла
     long fileSize = ftell(f);
     fclose(f);
 
@@ -86,7 +86,7 @@ void displayFootballers() {
         return;
     }
      // Вычисляем количество записей
-     fseek(f, 0, SEEK_END);
+     fseek(f, 0, SEEK_END); // Перейти на конец файла
      long fileSize = ftell(f);
      int totalFootballers = fileSize / sizeof(Footballer);
      rewind(f);
@@ -120,7 +120,7 @@ void displayFootballers() {
 // Создание начальных данных
 void createInitialData() {
     FILE* f = fopen(FILE_NAME, "wb");
-    if (!f) {
+    if (!f) { // Проверяем открылся ли файл или нет
         printf("Error creating file\n");
         return;
     }
@@ -135,7 +135,7 @@ void createInitialData() {
         {"Volkova Tatiana", "MIEM", "goalkeeper", 111, 2348, 1}
     };
 
-    fwrite(footballers, sizeof(Footballer), 5, f);
+    fwrite(footballers, sizeof(Footballer), 7, f);
     fclose(f);
     printf("Initial footballer database created successfully!\n");
 }
@@ -152,7 +152,7 @@ void editFootballer(int position) {
         return;
     }
 
-    fseek(f, position * sizeof(Footballer), SEEK_SET);
+    fseek(f, position * sizeof(Footballer), SEEK_SET); // Перейти на кокретную позицию в файле
 
     Footballer footballer;
     fread(&footballer, sizeof(Footballer), 1, f);
@@ -192,7 +192,7 @@ void editFootballer(int position) {
             break;
     }
 
-    fseek(f, position * sizeof(Footballer), SEEK_SET);
+    fseek(f, position * sizeof(Footballer), SEEK_SET); // Перейти на кокретную позицию в файле
     fwrite(&footballer, sizeof(Footballer), 1, f);
     fclose(f);
 }
@@ -209,7 +209,7 @@ void deleteFootballer() {
         return;
     }
 
-    fseek(f, 0, SEEK_END);
+    fseek(f, 0, SEEK_END); // Перейти на конец файла
     long fileSize = ftell(f);
     int totalFootballers = fileSize / sizeof(Footballer);
 
@@ -228,9 +228,9 @@ void deleteFootballer() {
     Footballer tempFootballer;
 
     for (int i = position + 1; i < totalFootballers; i++) {
-        fseek(f, i * sizeof(Footballer), SEEK_SET);
+        fseek(f, i * sizeof(Footballer), SEEK_SET); // Перейти на кокретную позицию в файле
         fread(&tempFootballer, sizeof(Footballer), 1, f);
-        fseek(f, (i - 1) * sizeof(Footballer), SEEK_SET);
+        fseek(f, (i - 1) * sizeof(Footballer), SEEK_SET); // Перейти на кокретную позицию в файле
         fwrite(&tempFootballer, sizeof(Footballer), 1, f);
     }
 
